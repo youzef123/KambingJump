@@ -1,6 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
   const doodler = document.createElement('div')
+  const rightKey = document.querySelector('.rightButton')
+  const leftKey = document.querySelector('.leftButton')
+
+ 
+  rightKey.addEventListener("click", function() {
+    moveRight()
+   });
+  leftKey.addEventListener("click", function() {
+  moveLeft()
+  });
+
+
+  const messages = ["The best ka tiro" ,"Mataw a moro" ,
+  "Banel Bun" ,"Mataw a banel", "Tayuan a banel!" ,"Datu kagi jhaylun"]
   let isGameOver = false
   let speed = 3
   let platformCount = 5
@@ -118,6 +132,7 @@ function fall() {
   }
 
   function moveLeft() {
+    
     if (isGoingRight) {
         clearInterval(rightTimerId)
         isGoingRight = false
@@ -165,15 +180,19 @@ function fall() {
     } else if (e.key === 'ArrowUp') {
       moveStraight()
     }
+    
   }
-
+  function randMessage () {
+  return messages[Math.floor(Math.random() * messages.length)]
+  }
   function gameOver() {
+    const message = randMessage();
     isGameOver = true
     while (grid.firstChild) {
       console.log('remove')
       grid.removeChild(grid.firstChild)
     }
-    grid.innerHTML = score
+    grid.innerHTML = '<br>Score Nengka: '+ score + '</br><br><h3>'+ message +'</h3></br>';
     clearInterval(upTimerId)
     clearInterval(downTimerId)
     clearInterval(leftTimerId)
